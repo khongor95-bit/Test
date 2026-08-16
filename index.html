@@ -97,6 +97,12 @@
   .fchip:hover{border-color:var(--ink)}
   .fchip.on{background:var(--ink);border-color:var(--ink);color:#fff}
   .fsep{height:1px;background:var(--line);margin:16px 0}
+  .mchips{display:none}
+  @media(max-width:900px){
+    .mchips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .mchips::-webkit-scrollbar{display:none}
+    .mchips .fchip{flex:none;padding:8px 16px;font-size:13px}
+  }
 
   /* ── gallery ── */
   .gal{display:flex;flex-direction:column}
@@ -502,7 +508,11 @@ function vHome(){
         </div>
       </aside>
       <div class="shop-main">
-        <div class="sechead" style="margin-top:18px">
+        <div class="mchips">
+          <button class="fchip ${S.filter==="all"?"on":""}" onclick="setFilter('all')">Бүгд ${S.products.length}</button>
+          ${CATS.map(c=>`<button class="fchip ${S.filter===c?"on":""}" onclick="setFilter('${c}')">${c} ${counts[c]||0}</button>`).join("")}
+        </div>
+        <div class="sechead" style="margin-top:14px">
           <h2>${S.query?`«${esc(S.query)}» хайлтын үр дүн — ${list.length}`:S.filter==="all"?"Шинэ нэмэгдсэн бараа":esc(S.filter)}</h2>
           ${searching||S.condF.size?`<a href="#/" onclick="clearFilters()">Шүүлт арилгах</a>`:""}
         </div>
